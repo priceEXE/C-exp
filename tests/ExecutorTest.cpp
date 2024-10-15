@@ -18,6 +18,18 @@ TEST (ExecutorTest, should_return_init_pose_when_without_command){
     const Pose target({0, 0, 'E'});
     ASSERT_EQ(target, executor->Query());
 }
+//测试用例2
+TEST(ExecutorTest, shoul_return_default_pose_when_without_init_and_command)
+{
+    std::unique_ptr<Executor> executor(Executor::NewExecutor());//没有初始化
 
-};
+    //when
+
+    //then
+
+    const Pose target({0,0,'N'});
+    ASSERT_EQ(target, executor->Query());
+}
+
+}
         
