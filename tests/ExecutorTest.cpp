@@ -10,9 +10,9 @@ namespace adas{
 
 }
 //测试用例1
-TEST (ExecutorTest, should_return_init_pose_when,_without_command){
+TEST (ExecutorTest, should_return_init_pose_when_without_command){
 // given 给定测试条件
-    std::unique_ptr<Executor> executor( Executor::NewExecutor({0, 0, 'E'})): //给了初始姿势
+    std::unique_ptr<Executor> executor( Executor::NewExecutor({0, 0, 'E'}));//给了初始姿势
 // when
 // then
     const Pose target({0, 0, 'E'});

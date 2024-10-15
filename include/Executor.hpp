@@ -7,7 +7,7 @@ namespace adas{
         int x;
         int y;
         char heading; //'N','S','E','w'代表四个方向
-    }
+    };
 
     class Executor
     {
@@ -28,6 +28,6 @@ namespace adas{
 
     public:
         // 查询当前汽车姿态，纯虚函数，留给子类具体实现
-        virtual Pose Query(void) const noexcept = o;
-    }
+        virtual Pose Query(void) const noexcept = 0;
+    };
 };
