@@ -12,4 +12,8 @@ namespace adas{
     {
         return new(std::nothrow) ExecutorImpl(pose);
     }
+
+    void ExecutorImpl::Execute(const std::string &commands) noexcept {
+        
+    }
 }
