@@ -3,7 +3,7 @@
 #include <new>
 
 namespace adas{
-    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept :pose(pose) {}
+    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept :pose(pose) , isFast(false) {}
     Pose ExecutorImpl::Query(void) const noexcept{
         return pose;
     }
@@ -16,12 +16,14 @@ namespace adas{
     void ExecutorImpl::Execute(const std::string &commands) noexcept {
         for(const auto cmd : commands)
         {
+            if( cmd == 'F' )
+            {
+                isFast = !isFast;
+            }
+
             if( cmd == 'M' )
             {
-                if(pose.heading == 'E') { ++pose.x; }
-                else if(pose.heading == 'W') { --pose.x; }
-                else if(pose.heading == 'N') { ++pose.y; }
-                else if(pose.heading == 'S') { --pose.y; }
+                Move();
             }
             else if( cmd == 'L')
             {
@@ -37,6 +39,26 @@ namespace adas{
                 else if(pose.heading == 'N') { pose.heading = 'E'; }
                 else if(pose.heading == 'S') { pose.heading = 'W'; }
             }
+        }
+    }
+
+    void ExecutorImpl::Move() noexcept
+    {
+        if(pose.heading == 'E')
+        {
+            pose.x++;
+        }
+        else if(pose.heading == 'S')
+        {
+            pose.y--;
+        }
+        else if(pose.heading == 'W')
+        {
+            pose.x--;
+        }
+        else if(pose.heading == 'N')
+        {
+            pose.y++;
         }
     }
 }
