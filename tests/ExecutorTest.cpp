@@ -1,14 +1,9 @@
 #include <gtest/gtest.h>
 #include <memory>
-#include <tuple>
 #include "Executor.hpp"
+#include "PoseEq.hpp"
 
 namespace adas{  
- bool operator==(const Pose &Ihs, const Pose &rhs)
-{
-    return std::tie(Ihs.x, Ihs.y, Ihs.heading) == std::tie(rhs.x,rhs.y, rhs.heading);
-
-}
 //测试用例1
 TEST (ExecutorTest, should_return_init_pose_when_without_command){
 // given 给定测试条件
