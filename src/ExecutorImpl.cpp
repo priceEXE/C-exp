@@ -19,7 +19,7 @@ namespace adas{
             std::unique_ptr<ICommand> cmder ;
             if( cmd == 'F' )
             {
-                isFast = !isFast;
+                cmder = std::make_unique<FastCommand>();
             }
             else if( cmd == 'M')
             {
@@ -39,7 +39,7 @@ namespace adas{
 
     void ExecutorImpl::Move() noexcept
     {
-        if(pose.heading == 'E')
+        if(pose.heading == 'E' )
         {
             pose.x++;
         }
@@ -52,7 +52,7 @@ namespace adas{
             pose.x--;
         }
         else if(pose.heading == 'N')
-        {
+        {     
             pose.y++;
         }
     }
@@ -94,5 +94,15 @@ namespace adas{
         {
             pose.heading = 'W';
         }
+    }
+
+    void ExecutorImpl::Fast() noexcept
+    {
+        isFast = !isFast;
+    }
+
+    bool ExecutorImpl::IsFast() const noexcept
+    {
+        return isFast;
     }
 }
