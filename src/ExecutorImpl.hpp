@@ -28,6 +28,7 @@ namespace adas{
         Pose pose;
         bool isFast;
         void Move(void) noexcept;
+        void TurnLeft(void) noexcept;
    };
    
 };
