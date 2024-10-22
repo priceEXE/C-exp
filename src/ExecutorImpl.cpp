@@ -1,5 +1,5 @@
 #include "ExecutorImpl.hpp"
-
+#include <memory>
 #include <new>
 
 namespace adas{
@@ -20,18 +20,10 @@ namespace adas{
             {
                 isFast = !isFast;
             }
-
-            else if( cmd == 'M' )
+            if( cmd == 'M')
             {
-                Move();
-            }
-            else if( cmd == 'L')
-            {
-                TurnLeft();
-            }
-            else if( cmd == 'R')
-            {
-                TurnRight();
+                std::unique_ptr<MoveCommand>cmder = std::make_unique<MoveCommand>();
+                cmder->DoOperate(*this);
             }
         }
     }

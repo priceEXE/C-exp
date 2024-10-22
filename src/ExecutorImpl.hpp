@@ -7,7 +7,7 @@ namespace adas{
     /*
     adas的具体实现
     */
-   class ExecutorImpl : public Executor
+   class ExecutorImpl final: public Executor
    {
    public:
         //构造函数
@@ -30,6 +30,16 @@ namespace adas{
         void Move(void) noexcept;
         void TurnLeft(void) noexcept;
         void TurnRight(void) noexcept;
+
+    private:
+        class MoveCommand final
+        {
+            public:
+                void DoOperate(ExecutorImpl& executor) const noexcept
+                {
+                    executor.Move();
+                }
+        };
    };
    
 };
