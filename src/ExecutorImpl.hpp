@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Executor.hpp"
+#include "PoseHandler.hpp"
 #include <string>
 namespace adas{
     /*
@@ -19,19 +20,12 @@ namespace adas{
         //不能赋值
         ExecutorImpl &operator=(const ExecutorImpl &) = delete;
 
+
     public:
-        //查询当前汽车状态
         Pose Query(void) const noexcept override;
-        void Execute(const std::string &commands) noexcept override;
+        void Execute(const std::string & commands) noexcept override;
     private:
-        Pose pose;
-        bool isFast;
-    public:
-        void Move(void) noexcept;
-        void TurnLeft(void) noexcept;
-        void TurnRight(void) noexcept;
-        void Fast(void) noexcept;
-        bool IsFast(void) const noexcept;
+        PoseHandler posehandler;
    };
    
 };
