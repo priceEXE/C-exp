@@ -2,7 +2,6 @@
 
 #include "Executor.hpp"
 #include <string>
-
 namespace adas{
     /*
     adas的具体实现
@@ -27,55 +26,12 @@ namespace adas{
     private:
         Pose pose;
         bool isFast;
+    public:
         void Move(void) noexcept;
         void TurnLeft(void) noexcept;
         void TurnRight(void) noexcept;
         void Fast(void) noexcept;
         bool IsFast(void) const noexcept;
-
-    private:
-        class ICommand
-        {
-            public:
-                virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
-                virtual ~ICommand() = default;
-        };
-
-        class MoveCommand final : public ICommand
-        {
-            public:
-                void DoOperate(ExecutorImpl& executor) const noexcept override
-                {
-                    if(executor.IsFast())   executor.Move();
-                    executor.Move();
-                }
-        };
-        class TurnLeftCommand final : public ICommand
-        {
-            public:
-                void DoOperate(ExecutorImpl& executor) const noexcept override
-                {
-                    if (executor.IsFast())  executor.Move();
-                    executor.TurnLeft();
-                }
-        };
-        class TurnRightCommand final : public ICommand
-        {
-        public:
-            void DoOperate(ExecutorImpl &executor) const noexcept override
-            {
-                if (executor.IsFast())  executor.Move();
-                executor.TurnRight();
-            }
-        };
-        class FastCommand final : public ICommand
-        {
-            public:
-            void DoOperate(ExecutorImpl &executor ) const noexcept
-            {
-                executor.Fast();
-            }
-        };
    };
    
 };
