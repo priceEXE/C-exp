@@ -41,8 +41,8 @@ namespace adas{
         std::for_each(
             cmders.begin(),
             cmders.end(),
-            [this](const std::function<void(PoseHandler &posehandler)> & cmder) noexcept {
-                cmder(posehandler);
+            [this](const Cmder & cmder) noexcept {
+                cmder(posehandler).DoOperate(posehandler);
             }
         );
     }
