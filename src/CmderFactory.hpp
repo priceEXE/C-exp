@@ -28,6 +28,12 @@ namespace adas
             {'R', TurnRightCommand()},
             {'F', FastCommand()},
             {'B', ReverseCommand()},
+            {'Z', TurnRoundCommand()},
         };
+
+    private:
+        std::string ParseCommandString(std::string_view commands) const noexcept;
+        void ReplaceAll(std::string &inout, std::string_view what, std::string_view with) const noexcept;
     };
+    
 }
