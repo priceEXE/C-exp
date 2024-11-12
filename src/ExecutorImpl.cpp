@@ -1,8 +1,12 @@
 #include "ExecutorImpl.hpp"
-#include "Command.hpp"
-#include <memory>
-#include <new>
-#include <unordered_map>
+//#include "Command.hpp"
+#include "CmderFactory.hpp"
+#include "Singleton.hpp"
+
+#include <algorithm>
+//#include <memory>
+//#include <new>
+//#include <unordered_map>
 
 namespace adas{
     ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept :posehandler(pose) {}
@@ -18,21 +22,29 @@ namespace adas{
 
     void ExecutorImpl::Execute(const std::string &commands) noexcept
     {
-        std::unordered_map<char, std::function<void(PoseHandler & posehandler)>> cmderMap{
-            {'M', MoveCommand()},
-            {'L', TurnLeftCommand()},
-            {'R', TurnRightCommand()},
-            {'F', FastCommand()},
-            {'B',ReverseCommand()},
-        };
-        for(const auto cmd : commands)
-        {
-            const auto it = cmderMap.find(cmd);
-            if(it != cmderMap.end())
-            {
-                it->second(posehandler);
+        //std::unordered_map<char, std::function<void(PoseHandler & posehandler)>> cmderMap{
+        //    {'M', MoveCommand()},
+        //    {'L', TurnLeftCommand()},
+        //    {'R', TurnRightCommand()},
+        //    {'F', FastCommand()},
+        //    {'B',ReverseCommand()},
+        //};
+        //for(const auto cmd : commands)
+        //{
+        //    const auto it = cmderMap.find(cmd);
+        //    if(it != cmderMap.end())
+        //    {
+        //        it->second(posehandler);
+        //    }
+        //}
+        const auto cmders = Singleton<CmderFactory>::Instance().GetCmder(commands);
+        std::for_each(
+            cmders.begin(),
+            cmders.end(),
+            [this](const std::function<void(PoseHandler &posehandler)> & cmder) noexcept {
+                cmder(posehandler);
             }
-        }
+        );
     }
 
 }
