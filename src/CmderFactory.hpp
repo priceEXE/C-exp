@@ -5,8 +5,12 @@
 
 #include "Command.hpp"
 
+
 namespace adas
 {
+    using Cmder = std::function<void(PoseHandler &posehandler)>;
+    using CmderList = std::list<Cmder>;
+
     class CmderFactory final
     {
     public:
@@ -16,9 +20,9 @@ namespace adas
         CmderFactory(const CmderFactory &) =delete;
         CmderFactory& operator=(const CmderFactory&) = delete;
     public:
-        std::list<std::function<void(PoseHandler& posehandler)>> GetCmder(const std::string& commands) const noexcept;
+        CmderList GetCmder(const std::string& commands) const noexcept;
     private:
-        const std::unordered_map<char, std::function<void(PoseHandler &posehandler)>> cmderMap{
+        const std::unordered_map<char,Cmder> cmderMap{
             {'M', MoveCommand()},
             {'L', TurnLeftCommand()},
             {'R', TurnRightCommand()},
